@@ -192,6 +192,8 @@ const SKInventory = () => {
                                             </span>
                                         </td>
                                     )}
+                                    <td className="p-4 text-sm text-gray-600">{item.storageLocation || <span className="text-gray-400 italic">Not set</span>}</td>
+                                    <td className="p-4 text-sm text-gray-600">{item.supplier || <span className="text-gray-400 italic">Not set</span>}</td>
                                     <td className="p-4 text-right">
                                         <div className="flex justify-end gap-2">
                                             <button onClick={() => openEditModal(item)} className="px-3 py-1.5 rounded text-xs font-bold border border-steel-blue/50 text-steel-blue hover:bg-steel-blue/10 transition">Edit</button>
@@ -202,7 +204,7 @@ const SKInventory = () => {
                             ))}
                             {filteredItems.length === 0 && (
                                 <tr>
-                                    <td colSpan={activeTab === 'Material' ? 6 : 5} className="p-10 text-center text-gray-500 italic">
+                                    <td colSpan={activeTab === 'Material' ? 8 : 7} className="p-10 text-center text-gray-500 italic">
                                         {searchQuery ? `No ${activeTab.toLowerCase()}s match your search.` : `No ${activeTab.toLowerCase()}s in storage yet. Add one to get started.`}
                                     </td>
                                 </tr>
@@ -262,6 +264,18 @@ const SKInventory = () => {
                                                 className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-steel-blue/30 focus:border-steel-blue outline-none" placeholder="e.g., bags, kg, meters" />
                                         </div>
                                     </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">Storage Location</label>
+                                            <input type="text" value={matStorageLocation} onChange={(e) => setMatStorageLocation(e.target.value)}
+                                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-steel-blue/30 focus:border-steel-blue outline-none" placeholder="e.g., Shelf A1" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">Supplier</label>
+                                            <input type="text" value={matSupplier} onChange={(e) => setMatSupplier(e.target.value)}
+                                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-steel-blue/30 focus:border-steel-blue outline-none" placeholder="e.g., BuildCorp" />
+                                        </div>
+                                    </div>
                                 </>
                             ) : (
                                 <>
@@ -286,6 +300,18 @@ const SKInventory = () => {
                                             className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm bg-white focus:ring-2 focus:ring-steel-blue/30 focus:border-steel-blue outline-none">
                                             {['New', 'Good', 'Fair', 'Poor', 'Damaged'].map(c => <option key={c} value={c}>{c}</option>)}
                                         </select>
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">Storage Location</label>
+                                            <input type="text" value={toolStorageLocation} onChange={(e) => setToolStorageLocation(e.target.value)}
+                                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-steel-blue/30 focus:border-steel-blue outline-none" placeholder="e.g., Cabinet 3" />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-semibold text-gray-700 mb-1">Supplier</label>
+                                            <input type="text" value={toolSupplier} onChange={(e) => setToolSupplier(e.target.value)}
+                                                className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-steel-blue/30 focus:border-steel-blue outline-none" placeholder="e.g., ToolDepot" />
+                                        </div>
                                     </div>
                                 </>
                             )}
