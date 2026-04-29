@@ -69,7 +69,15 @@ const SKInventory = () => {
         try {
             if (activeTab === 'Material') {
                 if (!matName.trim() || !matCode.trim()) { setFormError('Name and Code are required.'); return; }
-                const payload = { name: matName.trim(), code: matCode.trim(), quantity: Number(matQuantity), category: matCategory, unit: matUnit };
+                const payload = { 
+                    name: matName.trim(), 
+                    code: matCode.trim(), 
+                    quantity: Number(matQuantity), 
+                    category: matCategory, 
+                    unit: matUnit,
+                    storageLocation: matStorageLocation.trim(),
+                    supplier: matSupplier.trim()
+                };
                 if (editingItem) {
                     await updateMaterial(editingItem.id || editingItem._id, payload);
                 } else {
@@ -77,7 +85,14 @@ const SKInventory = () => {
                 }
             } else {
                 if (!toolName.trim() || !toolCode.trim()) { setFormError('Name and Code are required.'); return; }
-                const payload = { name: toolName.trim(), code: toolCode.trim(), quantity: Number(toolQuantity), condition: toolCondition };
+                const payload = { 
+                    name: toolName.trim(), 
+                    code: toolCode.trim(), 
+                    quantity: Number(toolQuantity), 
+                    condition: toolCondition,
+                    storageLocation: toolStorageLocation.trim(),
+                    supplier: toolSupplier.trim()
+                };
                 if (editingItem) {
                     await updateTool(editingItem.id || editingItem._id, payload);
                 } else {
@@ -155,6 +170,8 @@ const SKInventory = () => {
                                 {activeTab === 'Material' && <th className="p-4 font-semibold border-b border-gray-200">Category</th>}
                                 {activeTab === 'Material' && <th className="p-4 font-semibold border-b border-gray-200">Unit</th>}
                                 {activeTab === 'Tool' && <th className="p-4 font-semibold border-b border-gray-200">Tool Health</th>}
+                                <th className="p-4 font-semibold border-b border-gray-200">Location</th>
+                                <th className="p-4 font-semibold border-b border-gray-200">Supplier</th>
                                 <th className="p-4 font-semibold border-b border-gray-200 text-right">Actions</th>
                             </tr>
                         </thead>
