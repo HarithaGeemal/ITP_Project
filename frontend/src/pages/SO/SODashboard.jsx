@@ -5,6 +5,7 @@ import IncidentTrendsAnalytics from '../../components/IncidentTrendsAnalytics';
 import SafetyComplianceMetrics from '../../components/SafetyComplianceMetrics';
 import NearMissTracker from '../../components/NearMissTracker';
 import SafetyAlertsQueue from '../../components/SafetyAlertsQueue';
+import EquipmentInspectionSchedule from '../../components/EquipmentInspectionSchedule';
 
 // safetyService.getSafetySummary returns:
 //   { openHazards, activePTWs, activeNotices, totalObservations }
@@ -306,6 +307,9 @@ const SODashboard = () => {
 
             {/* ── Near-Miss Tracker ── */}
             <NearMissTracker incidents={safetyIncidents} />
+
+            {/* ── Equipment Inspection Schedule ── */}
+            <EquipmentInspectionSchedule tools={tools} />
         </div>
     );
 };
