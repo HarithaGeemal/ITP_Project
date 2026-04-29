@@ -10,6 +10,9 @@ const mainStorageToolSchema = new mongoose.Schema(
             enum: ["New", "Good", "Fair", "Poor", "Damaged"],
             default: "New",
         },
+        storageLocation: { type: String, default: "" }, // Rack/Shelf location
+        supplier: { type: String, default: "" },        // Vendor purchased from
+
         isArchived: { type: Boolean, default: false },
     },
     { timestamps: true }

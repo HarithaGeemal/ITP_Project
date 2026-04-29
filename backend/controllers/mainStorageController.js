@@ -11,7 +11,7 @@ const isValidId = (id) => mongoose.Types.ObjectId.isValid(id);
 // @access  Store Keeper / Admin
 export const createStoreMaterial = async (req, res) => {
     try {
-        const { name, code, quantity, category, unit, defaultUnitCost, minStockThreshold } = req.body;
+        const { name, code, quantity, category, unit, defaultUnitCost, minStockThreshold, storageLocation, supplier } = req.body;
 
         if (!name || !code) {
             return res.status(400).json({ success: false, message: "Name and code are required" });
@@ -35,6 +35,8 @@ export const createStoreMaterial = async (req, res) => {
             defaultUnitCost: defaultUnitCost || 0,
             minStockThreshold: minStockThreshold || 0,
             currentStock: quantity || 0,
+            storageLocation: storageLocation || "",
+            supplier: supplier || "",
         });
 
         return res.status(201).json({ success: true, message: "Material added to main storage", item });
@@ -74,7 +76,7 @@ export const updateStoreMaterial = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid material ID" });
         }
 
-        const { name, code, quantity, category, unit, defaultUnitCost, minStockThreshold } = req.body;
+        const { name, code, quantity, category, unit, defaultUnitCost, minStockThreshold, storageLocation, supplier } = req.body;
 
         const updates = {};
         if (name !== undefined) updates.name = name.trim();
@@ -84,6 +86,8 @@ export const updateStoreMaterial = async (req, res) => {
         if (unit !== undefined) updates.unit = unit;
         if (defaultUnitCost !== undefined) updates.defaultUnitCost = defaultUnitCost;
         if (minStockThreshold !== undefined) updates.minStockThreshold = minStockThreshold;
+        if (storageLocation !== undefined) updates.storageLocation = storageLocation;
+        if (supplier !== undefined) updates.supplier = supplier;
 
         const item = await MaterialItem.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true });
         if (!item) return res.status(404).json({ success: false, message: "Material not found" });
@@ -128,7 +132,7 @@ export const deleteStoreMaterial = async (req, res) => {
 // @access  Store Keeper / Admin
 export const createStoreTool = async (req, res) => {
     try {
-        const { name, code, quantity, condition } = req.body;
+        const { name, code, quantity, condition, storageLocation, supplier } = req.body;
 
         if (!name || !code) {
             return res.status(400).json({ success: false, message: "Name and code are required" });
@@ -144,6 +148,8 @@ export const createStoreTool = async (req, res) => {
             code: code.trim(),
             quantity: quantity || 0,
             condition: condition || "New",
+            storageLocation: storageLocation || "",
+            supplier: supplier || "",
         });
 
         return res.status(201).json({ success: true, message: "Tool added to main storage", tool });
@@ -183,13 +189,15 @@ export const updateStoreTool = async (req, res) => {
             return res.status(400).json({ success: false, message: "Invalid tool ID" });
         }
 
-        const { name, code, quantity, condition } = req.body;
+        const { name, code, quantity, condition, storageLocation, supplier } = req.body;
 
         const updates = {};
         if (name !== undefined) updates.name = name.trim();
         if (code !== undefined) updates.code = code.trim();
         if (quantity !== undefined) updates.quantity = quantity;
         if (condition !== undefined) updates.condition = condition;
+        if (storageLocation !== undefined) updates.storageLocation = storageLocation;
+        if (supplier !== undefined) updates.supplier = supplier;
 
         const tool = await MainStorageTool.findByIdAndUpdate(req.params.id, updates, { new: true, runValidators: true });
         if (!tool) return res.status(404).json({ success: false, message: "Tool not found" });

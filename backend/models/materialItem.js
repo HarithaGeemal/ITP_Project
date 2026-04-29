@@ -12,6 +12,8 @@ const materialItemSchema = new mongoose.Schema(
         unit: { type: String, required: true }, // e.g., 'kg', 'bags', 'meters'
         defaultUnitCost: { type: Number, default: 0 },
         minStockThreshold: { type: Number, default: 0 },
+        storageLocation: { type: String, default: "" }, // Bin/Shelf location
+        supplier: { type: String, default: "" }, // Supplier/Vendor details
 
         // Material caching field
         currentStock: { type: Number, default: 0 },

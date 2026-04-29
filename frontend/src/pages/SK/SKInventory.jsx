@@ -24,18 +24,24 @@ const SKInventory = () => {
     const [matQuantity, setMatQuantity] = useState(0);
     const [matCategory, setMatCategory] = useState('Other');
     const [matUnit, setMatUnit] = useState('');
+    const [matStorageLocation, setMatStorageLocation] = useState('');
+    const [matSupplier, setMatSupplier] = useState('');
 
     // Tool form
     const [toolName, setToolName] = useState('');
     const [toolCode, setToolCode] = useState('');
     const [toolQuantity, setToolQuantity] = useState(0);
     const [toolCondition, setToolCondition] = useState('New');
+    const [toolStorageLocation, setToolStorageLocation] = useState('');
+    const [toolSupplier, setToolSupplier] = useState('');
 
     const [deleteConfirm, setDeleteConfirm] = useState(null);
 
     const resetForm = () => {
         setMatName(''); setMatCode(''); setMatQuantity(0); setMatCategory('Other'); setMatUnit('');
+        setMatStorageLocation(''); setMatSupplier('');
         setToolName(''); setToolCode(''); setToolQuantity(0); setToolCondition('New');
+        setToolStorageLocation(''); setToolSupplier('');
         setEditingItem(null); setFormError('');
     };
 
@@ -48,9 +54,11 @@ const SKInventory = () => {
             setMatName(item.name || ''); setMatCode(item.code || '');
             setMatQuantity(item.currentStock ?? item.quantity ?? 0);
             setMatCategory(item.category || 'Other'); setMatUnit(item.unit || '');
+            setMatStorageLocation(item.storageLocation || ''); setMatSupplier(item.supplier || '');
         } else {
             setToolName(item.name || ''); setToolCode(item.code || '');
             setToolQuantity(item.quantity || 0); setToolCondition(item.condition || 'New');
+            setToolStorageLocation(item.storageLocation || ''); setToolSupplier(item.supplier || '');
         }
         setIsModalOpen(true);
     };
