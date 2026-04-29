@@ -1,6 +1,10 @@
 import React from 'react';
 import { useSOContext } from '../../context/SOContext';
 import { useNavigate } from 'react-router-dom';
+import IncidentTrendsAnalytics from '../../components/IncidentTrendsAnalytics';
+import SafetyComplianceMetrics from '../../components/SafetyComplianceMetrics';
+import NearMissTracker from '../../components/NearMissTracker';
+import SafetyAlertsQueue from '../../components/SafetyAlertsQueue';
 
 // safetyService.getSafetySummary returns:
 //   { openHazards, activePTWs, activeNotices, totalObservations }
@@ -116,6 +120,14 @@ const SODashboard = () => {
                 </div>
             )}
 
+            {/* ── Safety Alerts Queue ── */}
+            <SafetyAlertsQueue 
+                incidents={safetyIncidents} 
+                hazards={hazardReports} 
+                ptws={ptws}
+                observations={safetyObservations}
+            />
+
             {/* ── KPI Stat Cards ── */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <StatCard
@@ -168,6 +180,9 @@ const SODashboard = () => {
                     </div>
                 ))}
             </div>
+
+            {/* ── Incident Trends & Analytics ── */}
+            <IncidentTrendsAnalytics incidents={safetyIncidents} />
 
             {/* ── Bottom Two-Column Section ── */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -285,6 +300,12 @@ const SODashboard = () => {
                 </div>
 
             </div>
+
+            {/* ── Safety Compliance Metrics ── */}
+            <SafetyComplianceMetrics workers={[]} incidents={safetyIncidents} hazards={hazardReports} />
+
+            {/* ── Near-Miss Tracker ── */}
+            <NearMissTracker incidents={safetyIncidents} />
         </div>
     );
 };
