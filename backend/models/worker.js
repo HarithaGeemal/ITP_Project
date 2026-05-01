@@ -42,5 +42,17 @@ const workerSchema = new mongoose.Schema(
     },
     { timestamps: true }
 );
+// models/Worker.js
+const mongoose = require('mongoose');
+
+const workerSchema = new mongoose.Schema({
+    name: { type: String, required: true },
+    contact: { type: String, required: true },
+    isAvailable: { type: Boolean, default: true }, // දැනට වැඩක ඉන්නවද නැද්ද?
+    assignedProject: { type: mongoose.Schema.Types.ObjectId, ref: 'Project', default: null },
+    dailyRate: { type: Number, required: true }
+});
+
+module.exports = mongoose.model('Worker', workerSchema);
 
 export default mongoose.model("Worker", workerSchema);
